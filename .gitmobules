@@ -1,0 +1,3 @@
+[submodule "php-openttd-admin"]
+	path = php-openttd-admin
+	url = https://github.com/toomeenoo/php-openttd-admin
