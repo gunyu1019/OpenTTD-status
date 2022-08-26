@@ -1,11 +1,15 @@
 <?php
-require_once("php-openttd-admin/OttdAdmin.php");
+// phpinfo();
+require_once("./php-openttd-admin/OttdAdmin.php");
 session_start();
 
 const CONFIG_DIR = "./config.ini";
 
 $configuration = parse_ini_file(CONFIG_DIR, true, INI_SCANNER_RAW);
 if (!$configuration) {
+    print_r("Could not find config.ini");
+    if (file_exists('./config.example.ini'))
+        copy('./config.example.ini', './config.ini');
     exit();
 }
 
@@ -19,6 +23,17 @@ $_join = $client->join();
 
 $serverInfo = $client->getServerInfo();
 $clientInfo = $client->getClientInfo();
+
+function get_server_memory_usage(){
+    $free = shell_exec('free');
+    $free = (string)trim($free);
+    $free_arr = explode("\n", $free);
+    $mem = explode(" ", $free_arr[1]);
+    $mem = array_filter($mem);
+    $mem = array_merge($mem);
+    return $mem[2]/$mem[1]*100;
+}
+
 ?>
 <html>
 <head>
@@ -44,16 +59,23 @@ $clientInfo = $client->getClientInfo();
         </div>
         <div class="main_flex_item">
             <span class="main_flex_title">CPU Usage</span>
-            <?php print_r(
+            <?php try {
+                print_r(
                     round(
-                            sys_getloadavg()[0] * 100, 2
+                        sys_getloadavg()[0] * 100, 2
                     )
-            )?> %
+                );
+            } catch(Error $e) {
+                print_r("Unknown");
+            } ?> %
         </div>
         <div class="main_flex_item">
             <span class="main_flex_title">Memory Usage</span>
-            <?php print_r(memory_get_usage())?>
-        </div>
+            <?php try {
+                print_r(get_server_memory_usage());
+            } catch(Error $e) {
+                print_r("Unknown");
+            } ?> %
         </div>
     </div>
 </div>
