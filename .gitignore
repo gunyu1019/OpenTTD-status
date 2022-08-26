@@ -1,0 +1,5 @@
+# IDE Configuration
+.idea/
+
+# Project Configuration
+config.ini
