@@ -9,7 +9,7 @@ class SystemInformation {
 
     public function cpu_usage() {
         if ($this->operationSystem == "Linux") {
-            return sys_getloadavg();
+            return sys_getloadavg()[0];
         } else {
             return "Unknown";
         }

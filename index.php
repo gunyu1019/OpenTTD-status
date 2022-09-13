@@ -23,6 +23,9 @@ $_join = $client->join();
 
 $serverInfo = $client->getServerInfo();
 $clientInfo = $client->getClientInfo();
+$companyInfo = $client->getCompanyInfo();
+$companyEconomyInfo = $client->getCompanyEconomy();
+$companyStats = $client->getCompanyStats();
 
 $memberList = array();
 foreach (array_slice($clientInfo, 1) as $member) {
@@ -48,12 +51,20 @@ try {
 } catch (Error $e) {
     $total_memory_s = $available_memory_s = $memory_percent = 0;
 }
+
+$companyColorList = array(
+    "#1b448c", "#4c7458", "#bc546d", "#d59c20",
+    "#c40000", "#357084", "#548413", "#50683c",
+    "#1878dc", "#b87050", "#505074", "#505074",
+    "#fd9b01", "#7c6848", "#737573", "#b8b8b8"
+)
 ?>
 <html>
 <head>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/afc467762e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="static/css/index.css">
 </head>
 <body>
@@ -84,10 +95,45 @@ try {
         </div>
     </div>
 </section>
-<!-- <section class="full_screen" id="company_stats">
+<section class="full_screen" id="company_stats">
     <div class="container">
-
+        <table class="company_info">
+            <tr class="table_title">
+                <th>국가명</th>
+                <th class="company_owner">소유주</th>
+                <th>자금</th>
+            </tr>
+            <?php foreach ($companyInfo as $index => $info): ?>
+                <tr>
+                    <td>
+                        <i class="fas fa-circle" style="color: <?= $companyColorList[$info['COLOR']] ?>"></i>
+                        <?= $info['COMPANY_NAME'] ?>
+                    </td>
+                    <td class="company_owner"><?= $info['MANAGER'] ?></td>
+                    <td>
+                        £ <?= number_format($companyEconomyInfo[$index]['MONEY']) ?>
+                        (£ <?= number_format($companyEconomyInfo[$index]['INCOME']) ?>)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div>34123</div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
     </div>
-</section> -->
+</section>
+<?php if (isset($_GET['debugger'])): ?>
+    <section class="full_screen" id="debugger">
+        <div class="container">
+            <?= print_r($companyInfo) ?>
+            <span style="padding: 30px; display: block"></span>
+            <?= print_r($companyEconomyInfo) ?>
+            <span style="padding: 30px; display: block;"></span>
+            <?= print_r($companyStats) ?>
+        </div>
+    </section>
+<?php endif ?>
 </body>
 </html>

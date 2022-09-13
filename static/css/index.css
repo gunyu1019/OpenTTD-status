@@ -35,7 +35,7 @@ div.main_group div.main_flex_group {
     border-radius: 30px;
 }
 
-@media screen and (min-width: 1058px)  {
+@media screen and (min-width: 1058px) {
     div.main_group div.main_flex_group {
         display: flex;
     }
@@ -96,4 +96,43 @@ div.main_group div.main_flex_group div.main_flex_item:hover {
 .tooltip-text-out:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
+}
+
+section#company_stats div.container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+section div.container table.company_info {
+    width: 100%;
+}
+
+section div.container table.company_info tr.table_title {
+    background-color: #838583;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+section div.container table.company_info tr.table_title th:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+section div.container table.company_info tr.table_title th:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+section div.container table.company_info tr.table_title th {
+    padding: 5px;
+}
+
+section div.container table.company_info tr td {
+    padding: 2px;
+}
+
+@media screen and (max-width: 1058px) {
+    section div.container table.company_info .company_owner {
+        display: none;
+    }
 }
