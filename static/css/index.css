@@ -128,11 +128,57 @@ section div.container table.company_info tr.table_title th {
 }
 
 section div.container table.company_info tr td {
-    padding: 2px;
+    padding: 5px 2px;
 }
 
 @media screen and (max-width: 1058px) {
     section div.container table.company_info .company_owner {
+        display: none;
+    }
+}
+
+section div.container table.company_info tr.company_info_title {
+    padding: 5px;
+}
+
+section div.container table.company_info tr.company_info_title:nth-child(n+3) {
+    border-top: 2px solid #838583;
+    border-radius: 3px;
+}
+
+/* section div.container table.company_info tr.company_info_detail {
+    display: none;
+} */
+
+section div.container table.company_info tr.company_info_detail td {
+    padding: 10px;
+}
+
+section div.container table.company_info tr.company_info_detail td div.company_info_detail_body {
+    background: whitesmoke;
+    border-radius: 8px;
+    color: #30303a;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+    height: 80px;
+}
+
+tr.company_info_detail td div.company_info_detail_body div.company_info_detail_row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+tr.company_info_detail td div.company_info_detail_body div.company_info_detail_row div {
+    flex: auto;
+}
+
+
+@media screen and (max-width: 800px) {
+    tr.company_info_detail td div.company_info_detail_body div.company_info_detail_row span.company_info_detail_key_hidden {
         display: none;
     }
 }
